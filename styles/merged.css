@@ -1,0 +1,114 @@
+#map-svg-container {
+    width: calc(min(80vw, 80vh) - 10px);
+    height: calc(min(80vw, 80vh) - 10px);
+    top: 5px;
+    left: 5px;
+}
+
+#time-svg-container {
+    width: calc(100vw - 10px);
+    height: calc(100vh - min(80vw, 80vh) - 5px);
+    top: min(80vw, 80vh);
+    left: 5px;
+}
+
+#query-system-container {
+    position: fixed;
+    width: calc(100vw - min(80vw, 80vh) - 5px);
+    height: calc(min(80vw, 80vh) / 2 - 5px);
+    top: 5px;
+    left: min(80vw, 80vh);
+}
+
+#settings-container {
+    position: fixed;
+    width: calc(100vw - min(80vw, 80vh) - 5px);
+    height: calc(min(80vw, 80vh) / 2 - 5px);
+    top: calc(min(80vw, 80vh) / 2);
+    left: min(80vw, 80vh);
+}
+
+@media only screen and (max-width:620px) {
+    #map-svg-container {
+        width: calc(100vw - 10px);
+        height: calc(100vw - 10px);
+        top: 5px;
+        left: 5px;
+    }
+
+    #time-svg-container {
+        width: calc(100vw - 10px);
+        height: calc(100vh * 0.2 - 5px);
+        top: 100vw;
+        left: 5px;
+    }
+
+    #query-system-container {
+        width: calc(100vw - 10px);
+        height: calc(100vh * 0.1 - 5px);
+        top: calc(100vw + 100vh * 0.2);
+        left: 5px;
+    }
+
+    #settings-container {
+        width: calc(100vw - 10px);
+        height: calc(100vh * 0.1);
+        top: calc(100vw + 100vh * 0.3);
+        left: 5px;
+    }
+}
+
+.textbox {
+    box-sizing: border-box;
+    width: 100%;
+    height: 70%;
+}
+
+.svg {
+    width: 100%;
+    height: 100%;
+    outline: 1px solid black;
+}
+
+.solid-line {
+    stroke:solid;
+}
+
+.dashed-line {
+    stroke-dasharray: 5,5;
+}
+
+.heavy-font {
+    font: bold 2vh sans-serif;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    font: 15px sans-serif;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+#map-svg-tooltip {
+    background: #756F98;
+}
+
+#time-svg-tooltip {
+    background: #FFFFFF;
+}
+
+.tooltip-image {
+    float: left;
+    padding: 2px;
+}
+
+.tooltip-text {
+    float: right;
+    text-align: left;
+    padding: 2px;
+}

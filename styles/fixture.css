@@ -1,0 +1,72 @@
+ /*body{
+   background: linear-gradient(to bottom, #00CCCC 5%, #E0E0E0 40%);
+}*/
+ 
+ ul.championship_year li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+ul.championship_year {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:40%;
+  display:inline-block;
+}
+
+ ul.championship_year li {
+  float: left;
+  width:25%;
+}
+
+.year_2015 a,.year_2014 a,.year_2013 a,.year_2012 a,.year_2011 a{
+	color:black!important;
+}
+
+
+
+ul.championship_year li a:hover{
+	background-color:#3399ff;
+}
+
+svg{
+	display: block;
+    margin: -30px auto;
+	margin-top: -100px;
+}
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.container{
+	padding:30px;
+}
+
+text{
+	font-size:14px;
+	font-weight:700;
+}
+
+.heading{
+	font-size:30px;
+	background-color:#e5f5f9;
+	color:#2ca25f;
+	font-family:"Comic Sans MS";
+
+}
+
+.sub-heading{
+	font-size:18px;
+	color:#2ca25f;
+	font-family:"Comic Sans MS";
+}

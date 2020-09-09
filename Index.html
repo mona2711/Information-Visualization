@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="./styles/fixture.css">
+<title>Legend of league world championship</title>
+</head>
+
+<body>
+<div class="container ">
+<div ><span class="heading">League of Legends World Champions</span></div>
+<!--Year Selection menu-->
+<ul class="championship_year" id = "yearSelection">
+  <li style="background-color:#00441b;" class= "year_2019" id = "year2019" onClick="year_click(this.id)"><a href="#">2019</a></li>
+  <li style="background-color:#006d2c;" class= "year_2018" id = "year2018" onClick="year_click(this.id)"><a href="#">2018</a></li>
+  <li style="background-color:#41ae76;" class= "year_2017" id = "year2017" onClick="year_click(this.id)"><a href="#">2017</a></li>
+  <li style="background-color:#66c2a4" class= "year_2016" id = "year2016" onClick="year_click(this.id)"><a href="#">2016</a></li>
+ 
+</ul>
+<div class="sub-heading">Select a year to learn how to play like a pro from pros</div>
+
+</div>
+
+<!--Year Selection menu ends-->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js"></script>
+ <script type="text/javascript" src="./scripts/fixture.js"></script>
+</body>
+</html>

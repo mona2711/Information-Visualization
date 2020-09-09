@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="./scripts/map/constants.js"></script>
+    <script src="./scripts/map/query-controller.js"></script>
+    <script src="./scripts/map/settings-controller.js"></script>
+    <script src="./scripts/map/svg-controller.js"></script>
+    <script src="./scripts/map/match-object-controller.js"></script>
+    <script src="./scripts/map/team-object-controller.js"></script>
+    <script src="./scripts/map/timeline-object-controller.js"></script>
+    <script src="./scripts/map/player-object-controller.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles/map.css">
+</head>
+<body>
+    <div id="map-svg-container" class="svg-container">
+        <svg id="map-svg" class="svg"></svg>
+    </div>
+    <div id="map-svg-tooltip" class="tooltip" style="opacity:0"></div>
+
+    <div id="time-svg-container" class="svg-container">
+        <svg id="time-svg" class="svg"></svg>
+    </div>
+    <div id="time-svg-tooltip" class="tooltip" style="opacity:0"></div>
+
+    <div id="timeline-svg-container" class="svg-container">
+        <svg id="timeline-svg" class="svg"></svg>
+    </div>
+
+    <div id="query-system-container">
+        <input type="text" id="query-textbox" class="textbox">
+        <input type="button" id="query-submit-button" class="button" value="Submit">
+        <input type="button" id="query-clear-button" class="button" value="Clear">
+    </div>
+
+    <div id="settings-container">
+        <input type="checkbox" id="grid-checkbox-b" class="checkbox"><label>Show Blue-side Grid</label>
+        <input type="checkbox" id="grid-checkbox-r" class="checkbox"><label>Show Red-side Grid</label>
+    <div>
+
+<script>
+    d3.csv("https://raw.githubusercontent.com/jkclai/csc511-project/master/src/assets/csv/complete.csv").then(function(rows) {
+        window.data=preprocess(rows);
+
+        visualizeHistory(data);
+    });
+
+    window.mapSvg = d3.select("svg#map-svg");
+    window.mapSvgTooltip = d3.select("div#map-svg-tooltip");
+
+    window.timeSvg = d3.select("svg#time-svg");
+    window.timeSvgTooltip = d3.select("div#time-svg-tooltip");
+
+    window.timelineSvg = d3.select("svg#timeline-svg");
+
+    window.addEventListener("resize", function() {
+        clearTime();
+        visualizeHistory(data);
+    });
+
+    mapSvg.append("image")
+        .attr("xlink:href", "./images/minimap.png")
+        .attr("width", "100%")
+        .attr("height", "100%");
+    
+    document.getElementById("query-textbox").value = localStorage.getItem("query");
+    localStorage.setItem("query", " ");
+    
+    d3.select("input#query-submit-button").on("click", function() {
+        parseQuery(document.getElementById("query-textbox").value);
+    });
+
+    d3.select("input#query-clear-button").on("click", function() {
+        document.getElementById("query-textbox").value = "";
+        parseQuery(document.getElementById("query-textbox").value);
+    });
+
+    d3.select("input#grid-checkbox-b").on("change", function() {
+        gridUpdate("b");
+    });
+
+    d3.select("input#grid-checkbox-r").on("change", function() {
+        gridUpdate("r");
+    });
+
+    function preprocess(data) {
+        function convertExcelDateToJSDateTime(excelDate, offset) {
+            return new Date(Math.round((excelDate - 25569) * 86400 * 1000) + offset * 60 * 60 * 1000);
+        }
+
+        data = data.filter(d => d["date"] >= 30000)
+            .map(function(d) {
+                d["unique"] = d["gameid"] + "-" + d["league"] + "-" + d["url"].replace(/[^\w]/g,'');
+                d["datetime"] = convertExcelDateToJSDateTime(d["date"], 6);
+                d["date_"] = new Date(d["datetime"].toDateString());
+                d["date"] = d["datetime"].toDateString().replace(/\s+/g, "-");
+                return d;
+            });
+
+        let partial = data.filter(d => d["playerid"] == "1");
+
+        partial.sort(function(a, b) {
+            if(a["datetime"] > b["datetime"]) {
+                return 1;
+            }
+            else if(a["datetime"] < b["datetime"]) {
+                return -1;
+            }
+            return 0;
+        });
+
+        uniqueTable = {};
+        countTable = {};
+        partial.forEach(function(d) {
+            if(d["date_"] in countTable) {
+                countTable[d["date_"]]++;
+            }
+            else {
+                countTable[d["date_"]] = 1;
+            }
+
+            uniqueTable[d["unique"]] = countTable[d["date_"]];
+        });
+
+        data = data.map(function(d) {
+            d["count"] = uniqueTable[d["unique"]];
+            return d;
+        });
+
+        return data
+    }
+</script>
+</body>
+</html>
